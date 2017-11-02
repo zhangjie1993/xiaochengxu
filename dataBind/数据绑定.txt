@@ -1,0 +1,54 @@
+1.wxml中的动态数据均来自对应Page的data。
+2.小程序的数据绑定使用双大括号来将变量包裹起来的。
+例如：<view>{{massage}}<view>
+      Page({
+        data:{
+          massage:'Hello World!'
+        }
+      })
+3.组件属性，控制属性，关键字都需要在双引号之内
+例如：<view id="item-{{id}}"></view> //组件属性
+      <view wx:if={{condition}}></view> //控制属性
+      <checkbox checked="{{false}}"></checkbox> //关键字
+4.可以在{{}}进行简单的运算有三目运算，算数运算，逻辑判断，字符串运算，数据路径运算
+例如：<view hidden="{{flag ? true : false}}">hidden</view> //三目运算
+      <view>{{a + b}} + {{c}} + d</view> //算数运算
+      <view wx:if="{{lengh > 5}}"></view>  //逻辑判断
+      <view>{{"hello" + name}}</view> //字符串运算
+      <view>{{object.key}} {{array[0]}}</view> //数据路径运算
+5.也可以在Mustache内直接进行组合，构成新的数组或者对象
+例如：<view wx:for="{{[zero,1,2,3,4]}}">{{item}}</view> //数组
+      Page({
+        data: {
+          zero: 0
+        }
+      })
+      最终组合成数组[0, 1, 2, 3, 4]。
+      
+      <templete is="objectCombine" data="{{for: a,bar: b}}"></templete> //对象
+      Page({
+        data: {
+          a: 1,
+          b: 2
+        }
+      })
+    最终组合成的对象是 {for: 1, bar: 2}
+
+      <template is="objectCombine" data="{{...obj1,...obj2,e:5}}"></template> //可用扩展运算符...来将一个对象展开
+      Page({
+        data: {
+          obj1: {
+            a: 1,
+            b: 2
+          },
+          obj2: {
+            c: 3,
+            d: 4
+          }
+        }
+      })
+    最终组合成的对象是 {a: 1, b: 2, c: 3, d: 4, e: 5}。
+
+注意：a.如果对象的key和value相同，也可以间接地表达。如：data="{{foo,bar}}"
+      b.在对象组合中，若存在变量名相同的情况，后面的会覆盖掉前面的
+      c.花括号和引号之间如果有空格，将被解析为字符串。如：<view wx:for="{{[1,2,3]}} ">{{item}}</view>等同于<view wx:for="{{[1,2,3] + ' '}}">{{item}}</view>

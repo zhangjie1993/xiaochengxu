@@ -1,0 +1,36 @@
+<!--index.wxml-->
+
+<!--简单绑定-->
+<!--<view>{{massage}}</view>-->
+
+<!--组件属性-->
+<!--<view id='item-{{id}}'></view>-->
+
+<!--控制属性-->
+<!--<view wx:if="{{condition}}"></view>-->
+
+<!--关键字-->
+<!--<checkbox checked='{{false}}'></checkbox>-->
+
+<!--三目运算-->
+<!--<view hidden='{{flag ? true : false}}'></view>-->
+
+<!--算数运算 -->
+<!--<view>{{a + b}} + {{c}} + d</view>-->
+
+<!--逻辑判断-->
+<!--<view wx:if='{{length > 5}}'></view>-->
+
+<!--字符串运算-->
+<!--<view>{{a + b + "hello"}}</view>-->
+
+<!--数据路径运算-->
+<!--<view>{{object.key}}{{array[0]}}</view>-->
+
+<!--数组组合-->
+<!--<view wx:for="{{[zero,0,1,2]}}">{{item}}</view>-->
+<!--<view wx:for="{{array}}">{{item}}</view>-->
+
+<!--对象组合-->
+<template is="objectCombine" data="{{for: a,bar: b}}"></template>
+<template is="objectCombine" data="{{...obj1, ...obj2, e: 1}}"></template>
