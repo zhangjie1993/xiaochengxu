@@ -1,0 +1,15 @@
+1.wx:if
+a.在小程序里面使用wx：if='{{condition}}'来判断是否需要渲染该代码块。
+例如：<view wx:if='{{condition}}'>true</view>
+b.可以通过wx:elif和wx:else来添加一个else块
+例如：<view wx:if='{{length > 5}}'>view1</view>
+      <view> wx:elif='{{length < 2}}'>view2</view>
+      <view wx:else>view3</view>
+c.block wx:if如果需要一次性判断多个组件标签，可以用一个<block/>标签将多个组件包装起来，并且在上面使用wx:if控制属性.注意：<block>只是一个标签，在页面不做任何渲染，只接受控制属性。
+例如<block wx:if='{{true}}'>
+      <view>view1</view>
+      <view>view2</view>
+    </block>
+  d.wx:if与hidden都可以控制小程序元素显示与否
+    wx:if是遇true显示，hidden是遇false显示。
+    wx:if在隐藏时不渲染，hidden在隐藏时仍然渲染，只是不呈现。所以如果频繁切换的话，用wx:if将会消耗更多的资源，因为每次呈现的时候他都会渲染，每次隐藏的时候他都会销毁。如果切换不频繁的话，用wx:if比较好，因为他会避免一下子渲染那么多。
