@@ -10,6 +10,6 @@ c.block wx:if如果需要一次性判断多个组件标签，可以用一个<blo
       <view>view1</view>
       <view>view2</view>
     </block>
-  d.wx:if与hidden都可以控制小程序元素显示与否
+d.wx:if与hidden都可以控制小程序元素显示与否
     wx:if是遇true显示，hidden是遇false显示。
     wx:if在隐藏时不渲染，hidden在隐藏时仍然渲染，只是不呈现。所以如果频繁切换的话，用wx:if将会消耗更多的资源，因为每次呈现的时候他都会渲染，每次隐藏的时候他都会销毁。如果切换不频繁的话，用wx:if比较好，因为他会避免一下子渲染那么多。
