@@ -1,0 +1,18 @@
+1.wx:for
+a.使用wx:for控制属性绑定一个数组，默认数组的当前项的下标变量名默认为index，数组当前项的变量名默认为item。
+例如：<view wx:for="{{array}}">{{index}}: {{item}}</view>
+b.使用wx:for-item可以指定数组当前元素的变量名，使用wx：for-index可以指定数组当前下标的变量名。
+例如：<view wx:for="{{array}} wx:for-index="idx"             wx:foe-item="itemName">{{idx}}: {{itemName.massage}}</view>
+c.也可以将wx：for用在<block/>标签上，以渲染一个包含多个节点的结构块。
+例如：<block wx:for="{{[1,2,3]}}">
+        <view>{{index}}:</view>
+        <view>{{item}}</view>
+      </block>
+2.wx:key
+如果列表中的项目位置会动态改变或者有新的项目添加到列表中，并且希望列表中的项目保持自己的特征和状态，需要用wx：key来指定列表中项目的唯一标识符。
+a.wx:key的两种表现方式(说白了就是定一个唯一标识的字段)
+字符串，代表在for循环的array中的item的某个property，该property的需要时列表中唯一的字符串或数字，且不能动态改变。
+例如：<switch wx:for="{{array}}" wx:key="unique">{{item.id}}</switch>
+
+保留关键字*this代表在for循环中的item本身是唯一的字符串或者数字。
+例如：<switch wx:for="{{array}}" wx:key="*this">{{item}}</switch>

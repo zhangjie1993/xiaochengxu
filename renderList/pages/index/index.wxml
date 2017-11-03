@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<!--wx:for-->
+<view wx:for="{{[1,2,3]}}" wx:key="*this" wx:for-index="idx" wx:for-item="itemName">{{idx}}: {{itemName}}</view>
+
+<!--block wx:for-->
+<block wx:for="{{array}}">
+  <view>{{index}}:</view>
+  <view>{{item}}</view>
+</block>
+
+<!--wx:key-->
+<switch wx:for="{{objectArray}}" wx:key="id">{{item.id}}</switch>
+<button bindtap="switch">switch</button>
+<button bindtap='addToFront'>add to the front</button>
+
+<switch wx:for='{{array}}' wx:key='*this'>{{item}}</switch>
+<button bindtap='addNumberToFront'>add to the</button>
