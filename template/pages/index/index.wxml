@@ -1,0 +1,18 @@
+<!--template-->
+<template name="dataName">
+  <view>
+    {{index}} : {{item}}
+    </view>
+</template>
+<template is="dataName" data="{{...array}}">
+</template>
+<!--template动态渲染-->
+<template name="new">
+  <view>new</view>
+</template>
+<template name="old">
+  <view>old</view>
+</template>
+<block wx:for="{{[1,2,3]}}" wx:key="index">
+  <template is="{{item % 2 == 0 ? 'new' : 'old'}}"></template>
+</block>

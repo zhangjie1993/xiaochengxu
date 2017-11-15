@@ -1,0 +1,19 @@
+1.template（模板）:可以在模板中定义代码块，然后在不同的地方调用。类似于c和java的函数方法。
+a.定义模板
+通过template标签来定义，使用name属性作为模板的名字。
+例如：<template name="dataName">
+        <view>{{dataIndex}}:{{dataItem}}</view>
+      </template>
+b.使用模板:is属性中的值就是定义模板name的属性值
+<template is="dataName" data="{{...item}}">
+c.is属于还可以使用Mustache语法，来动态决定具体需要渲染哪个模板。
+例如：<template name="new">
+        <view>new</view>
+      </template>
+      <template name="old">
+        <view>old<view>
+      </template>
+      <block wx:for={{1,2,3,4}}>
+        <template is="{{item % 2 == 0 ? 'new' : 'old'}}"></template>
+      </block>
+
