@@ -1,0 +1,19 @@
+<!--事件的使用方式-->
+<view bindtap='tapName' data-array='1'>click me</view>
+<!--事件的绑定和冒泡：点击inner view会先后调用hangleTap3和handleTap2（因为tap事件会冒泡到middle view，而middle view阻止了tap事件冒泡，不再向父节点传递），点击middle view会触发handleTap2，点击outer view会触发handleTap1-->
+<view id="outer" bindtap='handleTap1'>
+  outer view
+  <view id='middle' catchtap='handleTap2'>
+    middle view
+    <view id='inner' bindtap='handleTap3'>
+      inner view
+    </view>
+  </view>
+</view>
+<!--事件的捕获阶段点击inner view会先后调用handleTap2，handleTap4，handleTap3，handleTap1,若将该代码第一个capture-bind改为capture-catch，将只会触发handleTap2-->
+<view id='outer' bind:tap='handleTap1' capture-catch:tap='handleTap2'>
+  outer view
+  <view id='inner' bind:tap='handleTap3' capture-bind:tap='handleTap4'>
+    inner view
+  </view>
+</view>

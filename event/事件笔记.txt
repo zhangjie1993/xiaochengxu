@@ -1,0 +1,36 @@
+一.事件的使用方式：在组件中绑定一个事件处理函数。如bindtap，当用户点击该组件的时候会在该页面对应的Page中找到相应的事件处理函数。
+例如：<view id="tapTest" bindtap="tapName">click<view>
+      page({
+        tagName: function(event){
+          cosole.log(event);
+        }
+      })
+二.事件详解
+  1..事件分类
+  事件分为冒泡事件和非冒泡事件。
+    1）冒泡事件：当一个组件的事件被触发之后，该事件会向父节点传递。
+    2）非冒泡事件：当一个组件早上的事件被触发后，该事件不会向父节点传递。
+    3）WXML冒泡事件列表：touchstart（手指触摸动作开始），touchmove（手指触摸后移动），touchcancel（手指触摸动作被打断），touchend（手指触摸动作结束），tap（手指触摸后马上离开），longpress（手指触摸后，超过350ms再离开，如果指定了事件回调函数触发了这个事件，tap事件将不被触发），longtap（手指触摸后，超过350ms再离开，推荐使用longpress事件代替），transitionend（会在WXSS transiton或者wx。createAnimation动画结束后触发），animationstart（会在WXSS animation动画开始时触发），animationteration（会在WXSS animation一次迭代结束时触发），animationend（会在一个WXSS animation动画完成时触发）
+  注：除了上述列表无特殊申明都是非冒泡事件。
+  2.事件绑定和冒泡
+  事件绑定的写法同组件的属性，以key、value的形式。
+    1）key以bind和catch开头跟上事件的类型如bindtap，catchtap。还可以紧跟一个冒号如bind：tap，catch：tap。bind不会阻止事件的向上冒泡，catch可以阻止事件冒泡。
+    2）value是一个字符串，需要在对应的Page中定义同名函数。
+  3.事件的捕获阶段
+  捕获阶段位于冒泡阶段之前，且在捕获阶段中，17:25:59到达节点的顺序与冒泡阶段恰好相反，需要在捕获阶段监听事件时，可以采用capture-bind，capture-catch关键字，后者将中断捕获阶段和取消冒泡阶段。
+  4.事件对象：如无特殊说明，当组件触发事件时，逻辑层绑定该事件的处理函数会收到一个事件对象。
+    1）BaseEvent挤出事件对象属性列表：type（string）事件类型，timeStamp（integer）事件生成的时间戳，target（object）触发事件的一些属性值集合，currentTarget（object）当前组件的一些属性值集合。
+      a.type:代表事件的类型。
+      b.timeStamp:页面打开到触发事件所经过的毫秒数。
+      c.target:触发事件的源组件。
+      d.currentTarget:事件绑定的当前组件。
+      注：target和currentTarget的属性有：id（string）当前组件的id，tagName（string）当前组件的类型，dataset（object）当前组件上由data-开头的自定义属性组成的集合。
+      dataset：在组件中定义数据，这些数据将通过事件传递给SERVICE。书写方式：以data-开头，多个单词由连字符-链接，不能有大写（大写会自动转成小写），最终在event.currentTarget.dataset中会将连字符转成驼峰elementType。
+    2）CustomEvent自定义事件对象属性列表（继承BaseEvent）：datail(object)额外的信息。
+      a.detail:自定义事件所携带的数据，如表单组件的提交事件会携带错误信息。点击事件的detail带有的x，y同pageX，pageY代表距离文档左上角的距离。
+    3）TouchEvent触摸事件对象属性列表（继承BaseEvent）：touches（array）：触摸事件，当前停留在屏幕中的触摸点信息的数组，changedTouches（array）触摸事件，当前变化的触摸点信息的数组。
+      a.touches是一个数组，每个元素为一个Touch对象（canvas触摸事件中携带的touches是CancasTouch数组）。表示当前停留在屏幕上的触摸点。
+      b.changedTouches:数据格式同touches。表示有变化的触摸点，如从无变有（touchstart），位置变化（touchmove），从有变无（touchend，touchcancel）。
+    注：<canvas>中的触摸事件不可冒泡，所以没有currTarget。
+    
+
