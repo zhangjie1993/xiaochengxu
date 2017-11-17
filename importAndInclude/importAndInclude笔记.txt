@@ -1,0 +1,20 @@
+WXML提供两个文件的引用方式import和include
+一.import:可以在该文件中使用目标文件定义的template。例如：
+  在item.wxml中定义一个叫做item的template：
+  <!--item.wxml-->
+  <template name='item'>
+    <text>{{text}}</text>
+  </template>
+  在index.wxml中引用了item.wxml,就可以使用item模板：
+  <import src='item.wxml'>
+    <template is='item' data='{{text: 'data'}}'/>
+  1)import的作用域：只会import目标文件中定义的template，而不会import目标文件import的template。如：C import B，B import A，在C中可以使用B定义的template,在B中可以使用A定义的template，但是C不能使用A定义的template。
+二.include:可以将目标文件除了<template/><wxs/>外的整个代码引入，相当于是拷贝到include位置。
+例如：<!--index.wxml-->
+      <include src='header.wxml'>
+      <view>body</view>
+      <include src='footer.wxml'>
+      <!--header.wxml-->
+      <view>header</view>
+      <!--footer.wxml-->
+      <view>footer</view>

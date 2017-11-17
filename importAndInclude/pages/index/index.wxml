@@ -1,0 +1,7 @@
+<!--index.wxml的import-->
+<import src='footer.wxml'/>
+<template is='footer' data='{{text: "data"}}'/>
+<!--index.wxml的include-->
+<include src='header.wxml'/>
+<view>body</view>
+<include src='footer.wxml'/>

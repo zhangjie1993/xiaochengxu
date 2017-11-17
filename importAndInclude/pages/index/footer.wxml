@@ -1,0 +1,2 @@
+<view>footer</view>
+<template name='footer'>{{text}}</template>
