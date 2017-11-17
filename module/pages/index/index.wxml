@@ -1,0 +1,15 @@
+<!--wxs文件-->
+  <!--module对象-->
+  <wxs src='./../comm.wxs' module='comm'/>
+  <view>{{comm.msg}}</view>
+  <view>{{comm.bar(comm.FOO)}}</view>
+
+  <!--require函数-->
+  <wxs src='./../tools.wxs' module='tools'/>
+  <view>{{tools.tools.msg}}</view> 
+
+
+<!--wxs标签-->
+  <!--module属性，src 属性-->
+  <wxs src='./../comm.wxs' module='some_comm'/>
+  <view>{{some_comm.bar("12")}}</view>

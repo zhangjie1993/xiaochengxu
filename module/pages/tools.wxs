@@ -1,0 +1,9 @@
+var tools = require('comm.wxs');
+//console.log(tools.FOO);
+//console.log(tools.BAR('tools.wxs'));
+//console.log(tools.msg);
+
+console.log(JSON.stringify(tools));
+module.exports = {
+  tools: tools,
+  };

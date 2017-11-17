@@ -1,0 +1,12 @@
+//.wxs文件
+
+var foo = 'hello world';
+var bar = function(d) {
+  return d;
+}
+//module对象
+module.exports = {
+  FOO: foo,
+  bar: bar,
+};
+module.exports.msg = "msg";

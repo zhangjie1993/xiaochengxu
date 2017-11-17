@@ -1,0 +1,92 @@
+WXS模块：WXS代码可以编写在wxml文件中的<wxs>标签内，或以.wxs为后缀名的文件内。
+一.模块
+每一个.wxs文件和<wxs>标签都是一个单独的模块。每个模块都有自己独立的作用域。即在一个模块里面定义的变量与函数默认都是私有的，对其他模块不可见。一个模块想要对外暴露内部的私有变量和函数，只能通过module.exports实现。
+二..wxs文件
+例如：// /page/comm.wxs
+      var foo = "hello ";
+      var bar = function(d) {
+        return d;
+      }
+      module.exports = {
+        foo: foo,
+        bar: bar
+      };
+  1.module对象：每个wxs模块均有一个内置的module对象。
+  2.属性：通过exports属性可以对外共享本模块的私有变量和函数。
+  例如： // /pages/tools.wxs
+        var foo = "hello world";
+        var var = function(d) {
+          return d;
+        }
+        module.exports = {
+          FOO: foo,
+          bar: bar,
+        };
+        module.exports.msg = 'msg';
+
+        // page/index/index.wxml
+        <wxs src='../../tools.wxs' module='tools' />
+        <view>{{tools.msg}}</view>
+        <view>{{tools.bar(tools.FOO)}}</view>
+  页面输出：msg
+          hello world
+  3.require函数：在.wxs模块中引用其他wxs文件模块，可以使用require函数。
+      注：只能引用.wxs文件模块，且必须使用相对路径。
+      wxs模块均为单例，wxs模块在第一次被引用时，会自动初始化为单例对象。多个页面，多个地方，多次引用，使用的都是同一个wxs模块对象。
+      如果一个wxs模块在定义之后，一直没有被引用，则该模块不会被解析与运行。
+  例如：// /pages/tools.wxs
+        var foo = "hello world";
+        var var = function(d) {
+          return d;
+        }
+        module.exports = {
+          FOO: foo,
+          bar: bar,
+        };
+        module.exports.msg = 'msg';
+
+        // /pages/logic.wxs
+        var tools = require("./tools.wxs");
+        console.log(tools.FOO);
+        console.log(tools.bar(tools.FOO));
+        console.log(tools.msg); 
+
+        <!-- /page/index/index.wxml -->
+        <wxs src="./../logic.wxs" module="logic" />
+  控制台输出：hello world
+            hello world
+            msg
+三.module标签：module属性（String）当前<wxs>标签的模块名，src属性（String）引用.wxs文件的相对路径。仅当本标签为单闭合标签或标签的内容为空时有效。
+  1.module属性：当前<mxs>标签的模块名。在单个wxml文件中，建议其值唯一。有重复模块名则按照先后顺序覆盖。不同文件之间的wxs模块名不会相互覆盖。
+  模块名的命名规范：首字母必须是字母或下划线，剩余字符可以是字母下划线数字
+  例如：<wxs module="foo">
+        var some_msg = "hello world";
+        module.exports = {
+            msg: some_msg,
+        }
+        </wxs>
+        <view>{{foo.msg}}</view>
+        页面输出：hello world
+  2.src属性：用来引用其他的wxs文件模块。
+    注：只能引用.wxs文件模块，且必须使用相对路径。
+    wxs模块均为单例，wxs模块在第一次被引用时，会自动初始化为单例对象。多个页面，多个地方，多次引用，使用的都是同一个wxs模块对象。
+    如果一个wxs模块在定义之后，一直没有被引用，则该模块不会被解析与运行。
+    例如：// /pages/index/index.js
+        Page({
+          data: {
+            msg: "'hello wrold' from js",
+          }
+        })
+
+        <!-- /pages/index/index.wxml -->
+        <wxs src="./../comm.wxs" module="some_comms"></wxs>
+        <!-- 也可以直接使用单标签闭合的写法<wxs src="./../comm.wxs" module="some_comms" />-->
+        <!-- 调用 some_comms 模块里面的 bar 函数，且参数为 some_comms 模块里面的 foo -->
+        <view> {{some_comms.bar(some_comms.foo)}} </view>
+        <!-- 调用 some_comms 模块里面的 bar 函数，且参数为 page/index/index.js 里面的 msg -->
+        <view> {{some_comms.bar(msg)}} </view>
+        
+  页面输出：'hello world' from comm.wxs
+            'hello wrold' from js
+  注：<wxs>模块只能在定义模块的WXML文件中被访问到。使用<include>或<import>时，<wxs>模块不会被引入到相应的WXML文件中。
+      <template>标签中，只能使用定义该<template>的WXML文件中定义的<wxs>模块。
