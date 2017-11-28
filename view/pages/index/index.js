@@ -2,53 +2,125 @@
 //获取应用实例
 const app = getApp()
 
-Page({
+//scroll-view
+//var order = ['red','yellow','blue','green','red'];
+
+/*Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+   toView: 'red',
+   scrollTop: 100
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+
+  upper: function(e) {
+    console.log(e);
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
+
+  lower: function(e) {
+    console.log(e);
+  },
+
+  scroll: function(e) {
+    console.log(e);
+  },
+
+  tap: function(e) {
+    for (var i = 0; i < order.length; ++i) {
+      if (order[i] === this.data.toView) {
         this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
+          toView: order[i + 1]
+        });
+        break
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+
+  tapMove: function(e) {
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      scrollTop: this.data.scrollTap + 10
+    });
+  }  
+})*/
+
+//swiper
+
+/*Page({
+
+  *
+   * 页面的初始数据
+   */
+  /*
+  data: {
+    imgUrls: [
+      '../images/img1.jpg',
+      '../images/img2.jpg',
+      '../images/img3.jpg'
+    ],
+    indicatorDots: false,
+    autoplay: false,
+    interval: 5000,
+    duration: 1000
+  },
+
+  changeIndicatorDots: function(e) {
+    this.setData({
+      indicatorDots: !this.data.indicatorDots
+    });
+  },
+
+  changeAutoplay: function(e) {
+    this.setData({
+      autoplay: !this.data.autoplay
+    });
+  },
+
+  intervalChange: function(e) {
+    this.setData({
+      interval: e.detail.value
+    });
+  },
+
+  durationChange: function(e) {
+    this.setData({
+      duration: e.detail.value
     })
   }
 })
+*/
+
+//movable-view
+/*Page({
+
+  *
+   * 页面的初始数据
+   
+  data: {
+      x: 0,
+      y: 0
+  },
+  tap: function(e) {
+    this.setData({
+      x: 30,
+      y: 30
+    })
+  }
+})*/
+
+//cover-view
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  onReady() {
+    this.videoCtx = wx.createVideoContext('myVideo');
+  },
+  
+  play() {
+    this.videoCtx.play();
+  },
+  
+  pause() {
+    this.videoCtx.pause();
+  }
+})
+
